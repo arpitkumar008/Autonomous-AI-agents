@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/static/styles.css">
+	<title>{% block title %}ForgeFlow{% endblock %}</title>
+</head>
+<body{% if project is defined %} data-project-id="{{project.id}}"{% endif %}>
+	<div class="shell">
+		<nav class="topbar">
+			<div class="topbar-inner">
+				<a class="brand" href="/dashboard"><span class="brand-mark">FF</span><span class="brand-name">ForgeFlow</span><span class="brand-note">Autonomous development</span></a>
+				{% if request.session.get('user_id') %}
+				<form action="/logout" method="post"><button class="sign-out" type="submit">Sign out</button></form>
+				{% endif %}
+			</div>
+		</nav>
+		<main class="page">{% block content %}{% endblock %}</main>
+	</div>
+	<script src="/static/app.js"></script>
+</body>
+</html>

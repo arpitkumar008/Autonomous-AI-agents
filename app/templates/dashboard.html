@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | ForgeFlow{% endblock %}
+{% block content %}
+<header class="page-heading"><div><div class="eyebrow">Local-first control plane</div><h1>Welcome, {{user.username}}</h1><p>Build, test, and checkpoint software from one focused workspace.</p></div></header>
+<section class="layout">
+	<form action="/projects" method="post" class="panel panel-pad"><div class="panel-title"><div><h2>Start a project</h2><p>Generated code stays in your local workspace.</p></div><span class="subtle">01</span></div><label class="field-label" for="project-name">Project name</label><input id="project-name" name="name" required placeholder="e.g. Commerce Demo" class="text-input"><button class="primary-button" type="submit" style="margin-top: 12px">Create project</button></form>
+	<section><div class="panel-title" style="margin-bottom: 14px"><div><h2>Your projects</h2><p>Pick up where your autonomous runs left off.</p></div><span class="subtle">{{projects|length}} total</span></div><div class="project-list">{% for p in projects %}<a href="/projects/{{p.id}}" class="project-item"><div class="project-item-top"><span class="project-name">{{p.name}}</span><span class="status status-{{p.status|lower}}">{{p.status}}</span></div><p class="project-meta">{{p.branch}} &middot; {{p.workspace_path}}</p></a>{% else %}<div class="empty">No projects yet. Create one to start an autonomous run.</div>{% endfor %}</div></section>
+</section>
+{% endblock %}

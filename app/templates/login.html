@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Sign in | ForgeFlow{% endblock %}
+{% block content %}
+<div class="auth-page"><section class="panel auth-card"><div class="panel-pad"><div class="eyebrow">Developer workspace</div><h1>Arpit model</h1><p class="intro">A local-first command center for turning product requirements into tested, reviewable code.</p>
+	{% if error %}<div class="alert">{{error}}</div>{% endif %}
+	<div class="auth-section" style="margin-top: 28px; border-top: 0; padding-top: 0"><h2>Sign in</h2><form action="/login" method="post" class="auth-form"><label class="field-label" for="login-username">Username</label><input id="login-username" name="username" required class="text-input" autocomplete="username"><label class="field-label" for="login-password">Password</label><input id="login-password" name="password" type="password" required class="text-input" autocomplete="current-password"><button class="primary-button" type="submit">Sign in</button></form></div>
+	<div class="auth-section"><h2>New here?</h2><form action="/register" method="post" class="auth-form"><label class="field-label" for="register-username">Choose a username</label><input id="register-username" name="username" required class="text-input" autocomplete="username"><label class="field-label" for="register-password">Create a password</label><input id="register-password" name="password" type="password" required class="text-input" minlength="8" autocomplete="new-password"><button class="outline-button" type="submit">Create account</button></form></div>
+</div></section></div>
+{% endblock %}

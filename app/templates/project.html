@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{project.name}} | ForgeFlow{% endblock %}
+{% block content %}
+<header class="project-header">
+  <div><a href="/dashboard" class="back-link">&larr; All projects</a><h1>{{project.name}}</h1><p>Branch: {{project.branch}} &middot; <span id="status" class="status status-{{project.status|lower}}">{{project.status}}</span></p></div>
+  {% if project.demo_url %}<a href="{{project.demo_url}}" target="_blank" rel="noreferrer" class="demo-button">Open live demo <span aria-hidden="true">&nbsp;&nearr;</span></a>{% endif %}
+</header>
+<section class="workspace">
+  <section class="panel activity-panel">
+    <div class="activity-head"><div><h2>Run activity</h2><span>Live updates from your development agents</span></div><span class="subtle">STREAM</span></div>
+    <div id="activity" class="activity">
+      {% for e in events|reverse %}<article class="event"><span class="event-dot"></span><div><div class="event-meta"><span class="event-agent">{{e.agent}}</span><span class="event-kind">{{e.kind}}</span></div><p class="event-message">{{e.message}}</p></div></article>
+      {% else %}<div class="empty">Describe the feature you want to build and your run activity will appear here.</div>{% endfor %}
+    </div>
+    <form id="chat" class="chat"><input id="message" maxlength="8000" required class="text-input" placeholder="Describe the next feature or change..."><button class="primary-button" type="submit">Send request</button></form>
+  </section>
+  <aside class="sidebar">
+    <section class="panel info-card"><h2>Privacy guardrails</h2><ul class="check-list"><li><span class="check">&#10003;</span> Workspace-only paths</li><li><span class="check">&#10003;</span> Secret files blocked</li><li><span class="check">&#10003;</span> Command allowlist + timeout</li><li><span class="check">&#10003;</span> No push to main</li></ul></section>
+    <section class="panel info-card"><h2>Latest tests</h2>{% for t in tests %}<div class="test-row"><strong>{{t.status}}</strong><span class="muted">&nbsp; {{t.passed}}/{{t.total}} passed</span></div>{% else %}<div class="test-row muted">Waiting for the first run</div>{% endfor %}</section>
+    <section class="panel info-card"><h2>Checkpoints</h2>{% for c in checkpoints[:3] %}<div class="checkpoint-row"><strong>{{c.status}}</strong><p>{{c.description}}</p></div>{% else %}<div class="test-row muted">No checkpoints yet</div>{% endfor %}</section>
+  </aside>
+</section>
+{% endblock %}
